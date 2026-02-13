@@ -63,7 +63,7 @@ body {
     z-index: 10;
     width: 95%;
     max-width: 650px;
-    padding: 0;
+    padding: 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,7 +76,6 @@ section {
     justify-content: center;
     width: 100%;
     min-height: 100vh;
-    /* Ensure section takes full height for centering */
 }
 
 .active-section {
@@ -267,7 +266,6 @@ section {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Icon specific colors on hover if you want to be extra premium */
 .kick:hover {
     background: #53fc18 !important;
     color: #000 !important;
@@ -331,12 +329,28 @@ section {
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
+    .premium-card {
+        padding: 40px 20px;
+        margin: 20px 0;
+        border-radius: 25px;
+    }
+
     .social-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 
     .main-title {
+        font-size: clamp(2rem, 10vw, 2.8rem);
+    }
+
+    .logo-container {
+        width: 160px;
+        height: 160px;
+    }
+
+    .username {
         font-size: 2rem;
     }
 }
