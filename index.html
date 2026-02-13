@@ -88,6 +88,18 @@
                         <img src="im/انستا باي.jpg" alt="InstaPay" class="social-icon-img">
                     </a>
                 </div>
+                <div class="music-control">
+                    <button id="musicToggle" class="music-toggle playing">
+                        <div class="sound-bars">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                        <span class="toggle-text">SOUND ON</span>
+                    </button>
+                </div>
             </main>
         </section>
     </div>
@@ -97,6 +109,8 @@
         const linksPage = document.getElementById('linksPage');
         const enterBtn = document.getElementById('enterBtn');
         const audio = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const toggleText = musicToggle.querySelector('.toggle-text');
 
         enterBtn.onclick = () => {
             landingPage.classList.add('fade-out');
@@ -104,7 +118,24 @@
                 landingPage.classList.remove('active-section');
                 linksPage.classList.add('active-section', 'fade-in');
                 audio.play();
+                musicToggle.classList.add('playing');
+                musicToggle.classList.remove('muted');
+                toggleText.innerText = "SOUND ON";
             }, 600);
+        };
+
+        musicToggle.onclick = () => {
+            if (audio.paused) {
+                audio.play();
+                musicToggle.classList.add('playing');
+                musicToggle.classList.remove('muted');
+                toggleText.innerText = "SOUND ON";
+            } else {
+                audio.pause();
+                musicToggle.classList.remove('playing');
+                musicToggle.classList.add('muted');
+                toggleText.innerText = "SOUND OFF";
+            }
         };
     </script>
 </body>

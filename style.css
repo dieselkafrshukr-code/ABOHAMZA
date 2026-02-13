@@ -336,6 +336,106 @@ section {
     color: #fff !important;
 }
 
+/* Music Toggle Button */
+.music-control {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.music-toggle {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--glass-border);
+    padding: 12px 25px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.music-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+}
+
+.sound-bars {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 20px;
+}
+
+.bar {
+    width: 3px;
+    background: var(--primary-color);
+    border-radius: 50px;
+    transition: height 0.3s ease;
+}
+
+.playing .bar {
+    animation: soundWave 1.2s infinite ease-in-out;
+}
+
+.playing .bar:nth-child(1) {
+    height: 10px;
+    animation-delay: 0.1s;
+}
+
+.playing .bar:nth-child(2) {
+    height: 18px;
+    animation-delay: 0.2s;
+}
+
+.playing .bar:nth-child(3) {
+    height: 12px;
+    animation-delay: 0.3s;
+}
+
+.playing .bar:nth-child(4) {
+    height: 20px;
+    animation-delay: 0.4s;
+}
+
+.playing .bar:nth-child(5) {
+    height: 15px;
+    animation-delay: 0.5s;
+}
+
+@keyframes soundWave {
+
+    0%,
+    100% {
+        transform: scaleY(0.5);
+    }
+
+    50% {
+        transform: scaleY(1.2);
+    }
+}
+
+.toggle-text {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.muted .bar {
+    height: 3px !important;
+    background: #666;
+    animation: none;
+}
+
+.muted .toggle-text {
+    color: #666;
+}
+
 /* Transition States */
 .fade-out {
     opacity: 0;
