@@ -257,33 +257,19 @@ section {
     color: #fff;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow: hidden;
 }
-
-.social-icon-img {
-    width: 30px !important;
-    height: 30px !important;
-    max-width: 30px !important;
-    max-height: 30px !important;
-    min-width: 30px !important;
-    min-height: 30px !important;
-    object-fit: contain !important;
-    display: block !important;
-    image-rendering: -webkit-optimize-contrast;
-    transition: transform 0.3s ease;
-    flex-shrink: 0 !important;
-}
-
-.social-item:hover .social-icon-img {
-    transform: scale(1.1);
-}
-
 
 .social-item:hover {
     transform: translateY(-10px) scale(1.1);
     background: #fff;
     color: #000;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.x-twitter:hover {
+    background: #000 !important;
+    color: #fff !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
 }
 
 .kick:hover {
