@@ -311,8 +311,9 @@ section {
 }
 
 .tiktok:hover {
-    background: #ff0050 !important;
+    background: #000 !important;
     color: #fff !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
 }
 
 .discord:hover {
