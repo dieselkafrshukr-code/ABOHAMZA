@@ -292,8 +292,13 @@ section {
     color: #fff !important;
 }
 
-.whatsapp:hover {
-    background: #25d366 !important;
+.youtube:hover {
+    background: #ff0000 !important;
+    color: #fff !important;
+}
+
+.facebook:hover {
+    background: #1877f2 !important;
     color: #fff !important;
 }
 
