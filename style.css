@@ -302,6 +302,11 @@ section {
     color: #fff !important;
 }
 
+.instapay:hover {
+    background: #6200ee !important;
+    color: #fff !important;
+}
+
 /* Transition States */
 .fade-out {
     opacity: 0;
