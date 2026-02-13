@@ -282,9 +282,14 @@ section {
     color: #fff !important;
 }
 
+.x-twitter i {
+    font-size: 2.1rem;
+}
+
 .x-twitter:hover {
     background: #000 !important;
     color: #fff !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
 }
 
 .tiktok:hover {
