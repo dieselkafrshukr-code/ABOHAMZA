@@ -106,6 +106,12 @@ section {
     animation: float 4s infinite ease-in-out;
 }
 
+.logo-container.small {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+}
+
 @keyframes float {
 
     0%,
