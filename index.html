@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABO HAMZA - GTA Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Outfit:wght@400;700;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="overlay"></div>
+
+    <!-- Background Audio -->
+    <audio id="bgMusic" loop>
+        <source src="background-audio.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Landing Page -->
+    <section id="landingPage" class="active-section">
+        <div class="container">
+            <main class="landing-card">
+                <div class="logo-container">
+                    <div class="logo-glow"></div>
+                    <img src="im/9fafbd5b-a8dc-4bf9-aefe-25d94a2d9685-fullsize.webp" alt="Logo"
+                        class="main-logo gta-border">
+                </div>
+
+                <h1 class="main-title">MAIN CHARACTER ENERGY</h1>
+                <p class="subtitle">ABO HAMZA × GAMING STREAMER</p>
+
+                <button id="enterBtn" class="enter-button">ENTER THE VIBE</button>
+                <div class="hint-container">
+                    <p class="hint">PRESS ENTER OR CLICK TO CONTINUE</p>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Links Page -->
+    <section id="linksPage" class="hidden-section">
+        <div class="container">
+            <main class="profile-card">
+                <div class="logo-container small">
+                    <img src="im/9fafbd5b-a8dc-4bf9-aefe-25d94a2d9685-fullsize.webp" alt="Logo" class="main-logo">
+                </div>
+
+                <h1 class="username">ABO HAMZA</h1>
+                <div class="tag">
+                    <span class="glitch-text" data-text="STREAMER">STREAMER</span>
+                </div>
+
+                <div class="description">
+                    <p>🎮 مرحبًا بكم 🎮 أنا أبو حمزة، عاشق الألعاب وصانع محتوى بيقدم كل جديد وممتع لعشاق الجيمنج! 🔥
+                        بثوث مباشرة مليانة حماس وأكشن. 🎥 فيديوهات لأفضل الألعاب وتجارب فريدة. 💡 نصائح وأسرار تساعدك
+                        تطور مهاراتك في اللعب.</p>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="social-item kick" title="Kick">
+                        <i class="fa-brands fa-kickstarter"></i>
+                    </a>
+                    <a href="#" class="social-item instagram" title="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-item instapay" title="InstaPay">
+                        <img src="https://img.icons8.com/ios-filled/50/ffffff/money-transfer.png" alt="InstaPay">
+                    </a>
+                    <a href="#" class="social-item whatsapp" title="WhatsApp">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="social-item tiktok" title="TikTok">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="social-item discord" title="Discord">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <script>
+        const landingPage = document.getElementById('landingPage');
+        const linksPage = document.getElementById('linksPage');
+        const enterBtn = document.getElementById('enterBtn');
+        const audio = document.getElementById('bgMusic');
+
+        function enterVibe() {
+            landingPage.classList.add('fade-out');
+
+            setTimeout(() => {
+                landingPage.style.display = 'none';
+                linksPage.style.display = 'flex';
+                linksPage.classList.add('fade-in');
+                audio.play().catch(e => console.log("Audio play failed:", e));
+            }, 800);
+        }
+
+        enterBtn.addEventListener('click', enterVibe);
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && landingPage.classList.contains('active-section')) {
+                enterVibe();
+            }
+        });
+    </script>
+</body>
+
+</html>
