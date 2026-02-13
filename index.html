@@ -10,7 +10,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Outfit:wght@400;700;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 </head>
 
 <body>
@@ -24,38 +23,28 @@
             type="audio/mpeg">
     </audio>
 
-    <!-- Landing Page -->
-    <section id="landingPage" class="active-section">
-        <div class="container">
-            <main class="landing-card">
+    <div class="container">
+        <!-- Landing Page -->
+        <section id="landingPage" class="active-section">
+            <main class="premium-card landing-card">
                 <div class="logo-container">
                     <div class="logo-glow"></div>
-                    <img src="im/9fafbd5b-a8dc-4bf9-aefe-25d94a2d9685-fullsize.webp" alt="Logo"
-                        class="main-logo gta-border">
-                </div>
-
-                <h1 class="main-title">MAIN CHARACTER ENERGY</h1>
-                <p class="subtitle">ABO HAMZA × GAMING STREAMER</p>
-
-                <button id="enterBtn" class="enter-button">ENTER THE VIBE</button>
-                <div class="hint-container">
-                    <p class="hint">PRESS ENTER OR CLICK TO CONTINUE</p>
-                </div>
-            </main>
-        </div>
-    </section>
-
-    <!-- Links Page -->
-    <section id="linksPage" class="hidden-section">
-        <div class="container">
-            <main class="profile-card">
-                <div class="logo-container small">
                     <img src="im/9fafbd5b-a8dc-4bf9-aefe-25d94a2d9685-fullsize.webp" alt="Logo" class="main-logo">
                 </div>
 
+                <h1 class="main-title">MAIN CHARACTER ENERGY</h1>
+                <p class="subtitle">ABO HAMZA × STREAMER</p>
+
+                <button id="enterBtn" class="enter-button">ENTER THE VIBE</button>
+            </main>
+        </section>
+
+        <!-- Links Page -->
+        <section id="linksPage">
+            <main class="premium-card profile-card">
                 <h1 class="username">ABO HAMZA</h1>
                 <div class="tag">
-                    <span class="glitch-text" data-text="STREAMER">STREAMER</span>
+                    <span class="subtitle">GAMING STREAMER</span>
                 </div>
 
                 <div class="description">
@@ -64,65 +53,44 @@
                         تطور مهاراتك في اللعب.</p>
                 </div>
 
-                <div class="social-links">
-                    <a href="https://kick.com/aboohamza" class="social-item kick" title="Kick" target="_blank">
+                <div class="social-grid">
+                    <a href="https://kick.com/aboohamza" target="_blank" class="social-item kick">
                         <i class="fa-brands fa-kickstarter"></i>
                     </a>
-                    <a href="https://www.instagram.com/aboohamza.91" class="social-item instagram" title="Instagram"
-                        target="_blank">
+                    <a href="https://www.instagram.com/aboohamza.91" target="_blank" class="social-item instagram">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
-                    <a href="https://x.com/abo_hamza_91" class="social-item x-twitter" title="X (Twitter)"
-                        target="_blank">
+                    <a href="https://x.com/abo_hamza_91" target="_blank" class="social-item x-twitter">
                         <i class="fa-brands fa-x-twitter"></i>
                     </a>
-                    <a href="#" class="social-item whatsapp" title="WhatsApp">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
-                    <a href="https://www.tiktok.com/@abohamza.91" class="social-item tiktok" title="TikTok"
-                        target="_blank">
+                    <a href="https://www.tiktok.com/@abohamza.91" target="_blank" class="social-item tiktok">
                         <i class="fa-brands fa-tiktok"></i>
                     </a>
-                    <a href="https://discord.com/invite/rcGTcBHcaw" class="social-item discord" title="Discord"
-                        target="_blank">
+                    <a href="https://discord.com/invite/rcGTcBHcaw" target="_blank" class="social-item discord">
                         <i class="fa-brands fa-discord"></i>
+                    </a>
+                    <a href="#" class="social-item whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i>
                     </a>
                 </div>
             </main>
-        </div>
-    </section>
+        </section>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
         const landingPage = document.getElementById('landingPage');
         const linksPage = document.getElementById('linksPage');
         const enterBtn = document.getElementById('enterBtn');
         const audio = document.getElementById('bgMusic');
 
-        function enterVibe() {
+        enterBtn.onclick = () => {
             landingPage.classList.add('fade-out');
-
             setTimeout(() => {
-                landingPage.style.display = 'none';
-                linksPage.style.display = 'flex';
-                linksPage.classList.add('fade-in');
-                audio.play().catch(e => console.log("Audio play failed:", e));
-                AOS.refresh();
-            }, 800);
-        }
-
-        enterBtn.addEventListener('click', enterVibe);
-
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && landingPage.classList.contains('active-section')) {
-                enterVibe();
-            }
-        });
+                landingPage.classList.remove('active-section');
+                linksPage.classList.add('active-section', 'fade-in');
+                audio.play();
+            }, 600);
+        };
     </script>
 </body>
 
