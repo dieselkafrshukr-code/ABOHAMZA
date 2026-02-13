@@ -10,9 +10,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Outfit:wght@400;700;900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 </head>
 
 <body>
+    <div class="bg-wrapper"></div>
     <div class="overlay"></div>
 
     <!-- Background Audio -->
@@ -73,10 +75,12 @@
                     <a href="#" class="social-item whatsapp" title="WhatsApp">
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
-                    <a href="#" class="social-item tiktok" title="TikTok">
+                    <a href="https://www.tiktok.com/@abohamza.91" class="social-item tiktok" title="TikTok"
+                        target="_blank">
                         <i class="fa-brands fa-tiktok"></i>
                     </a>
-                    <a href="#" class="social-item discord" title="Discord">
+                    <a href="https://discord.com/invite/rcGTcBHcaw" class="social-item discord" title="Discord"
+                        target="_blank">
                         <i class="fa-brands fa-discord"></i>
                     </a>
                 </div>
@@ -84,7 +88,13 @@
         </div>
     </section>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
         const landingPage = document.getElementById('landingPage');
         const linksPage = document.getElementById('linksPage');
         const enterBtn = document.getElementById('enterBtn');
@@ -98,6 +108,7 @@
                 linksPage.style.display = 'flex';
                 linksPage.classList.add('fade-in');
                 audio.play().catch(e => console.log("Audio play failed:", e));
+                AOS.refresh();
             }, 800);
         }
 
