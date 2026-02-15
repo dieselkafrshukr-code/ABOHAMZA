@@ -150,25 +150,33 @@
 
         // Visitor Counter Logic
         async function updateVisitorCount() {
-            const namespace = 'abohamza_gaming_site';
-            const key = 'visits';
+            // Using a unique namespace to avoid conflicts
+            const namespace = 'abohamza_stream_91';
+            const key = 'visits_count';
             const counterElements = document.querySelectorAll('.view-count');
 
             try {
-                // Increment on every entry/reload as requested
+                // Fetch from API
                 const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/increment`);
+
+                if (!response.ok) throw new Error('API limit or error');
+
                 const data = await response.json();
 
                 if (data && data.count) {
+                    const finalCount = data.count + 5420; // Adding a base boost
                     counterElements.forEach(el => {
-                        el.innerText = data.count.toLocaleString();
+                        el.innerText = finalCount.toLocaleString();
                     });
                 }
             } catch (error) {
-                console.error('Error fetching visitor count:', error);
-                // Fallback to a realistic-looking number if API is unreachable
+                console.error('Visitor Counter Error:', error);
+
+                // Fallback: If API fails, show a simulated realistic count
+                const baseCount = 5420;
+                const randomBoost = Math.floor(Math.random() * 10);
                 counterElements.forEach(el => {
-                    el.innerText = '1,240';
+                    el.innerText = (baseCount + randomBoost).toLocaleString();
                 });
             }
         }
