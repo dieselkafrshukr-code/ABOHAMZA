@@ -156,7 +156,8 @@
             const counterElements = document.querySelectorAll('.view-count');
 
             try {
-                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/increment`);
+                // Added cache buster (?cb=...) to force bypass any caching and ensure increment on every reload
+                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/increment?cb=${Date.now()}`);
                 const data = await response.json();
 
                 if (data && typeof data.count === 'number') {
