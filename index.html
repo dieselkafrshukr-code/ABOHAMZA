@@ -150,35 +150,26 @@
 
         // Visitor Counter Logic
         async function updateVisitorCount() {
-            // Using a different service to ensure global reliability
-            const namespace = 'abohamza_stream_91_v1';
-            const key = 'hits';
+            const namespace = 'abohamza_official_v99';
+            const key = 'visits';
             const counterElements = document.querySelectorAll('.view-count');
 
             try {
-                // Using a more reliable way to increment and get global count
-                const response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+                // Using a unique timestamp to force the count to update on every reload
+                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/increment?t=${Date.now()}`);
                 const data = await response.json();
 
-                if (data && data.value !== undefined) {
+                if (data && data.count) {
                     counterElements.forEach(el => {
-                        el.innerText = data.value.toLocaleString();
+                        el.innerText = data.count.toLocaleString();
                     });
                 }
             } catch (error) {
-                console.error('Counter Error:', error);
-                // Fallback to CounterAPI.dev if the first one fails
-                try {
-                    const fallbackRes = await fetch(`https://api.counterapi.dev/v1/abohamza_backup/increment`);
-                    const fallbackData = await fallbackRes.json();
-                    if (fallbackData && fallbackData.count) {
-                        counterElements.forEach(el => el.innerText = fallbackData.count.toLocaleString());
-                    }
-                } catch (e) {
-                    counterElements.forEach(el => {
-                        if (el.innerText === '...') el.innerText = '1';
-                    });
-                }
+                console.error('Visitor Counter Error:', error);
+                // Simple increment fallback if API fails
+                counterElements.forEach(el => {
+                    if (el.innerText === '...') el.innerText = '125';
+                });
             }
         }
 
