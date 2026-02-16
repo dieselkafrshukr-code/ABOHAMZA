@@ -147,33 +147,51 @@
                 toggleText.innerText = "SOUND OFF";
             }
         };
+    </script>
 
-        // Visitor Counter Logic
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, runTransaction, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAmpOrpmQP4mDNqQ901xZ9slxhNLWf5hWo",
+            authDomain: "project-4758047965677777481.firebaseapp.com",
+            projectId: "project-4758047965677777481",
+            storageBucket: "project-4758047965677777481.firebasestorage.app",
+            messagingSenderId: "486512069256",
+            appId: "1:486512069256:web:b53e08d026c7107f9e2d3d",
+            measurementId: "G-27PXNC9Q3B"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const visitorRef = ref(db, 'stats/visitorCount');
+        const counterElements = document.querySelectorAll('.view-count');
+
+        // Function to increment and sync counter
         async function updateVisitorCount() {
-            // Fresh namespace to ensure we start from the beginning
-            const namespace = 'hamza_stream_global_new';
-            const key = 'visits';
-            const counterElements = document.querySelectorAll('.view-count');
-
             try {
-                // Fetching from a reliable global API
-                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/increment`);
-                const data = await response.json();
-
-                if (data && data.count) {
-                    counterElements.forEach(el => {
-                        el.innerText = data.count.toLocaleString();
-                    });
-                }
-            } catch (error) {
-                console.error('Counter Error:', error);
-                // If API fails, just show a 1 to indicate at least someone is here
-                counterElements.forEach(el => {
-                    if (el.innerText === '...') el.innerText = '1';
+                // Use transaction to ensure thread-safe increment
+                await runTransaction(visitorRef, (currentValue) => {
+                    return (currentValue || 0) + 1;
                 });
+            } catch (error) {
+                console.error("Firebase Counter Error:", error);
             }
         }
 
+        // Listen for real-time changes
+        onValue(visitorRef, (snapshot) => {
+            const count = snapshot.val() || 0;
+            counterElements.forEach(el => {
+                el.innerText = count.toLocaleString();
+            });
+        });
+
+        // Run on load
         updateVisitorCount();
     </script>
 </body>
