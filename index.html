@@ -152,7 +152,7 @@
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, runTransaction, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getFirestore, doc, updateDoc, onSnapshot, setDoc, getDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -167,31 +167,41 @@
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        const visitorRef = ref(db, 'stats/visitorCount');
+        const db = getFirestore(app);
+        const statsRef = doc(db, "stats", "visitors");
         const counterElements = document.querySelectorAll('.view-count');
 
-        // Function to increment and sync counter
         async function updateVisitorCount() {
             try {
-                // Use transaction to ensure thread-safe increment
-                await runTransaction(visitorRef, (currentValue) => {
-                    return (currentValue || 0) + 1;
-                });
+                // Check if document exists, if not create it
+                const docSnap = await getDoc(statsRef);
+                if (!docSnap.exists()) {
+                    await setDoc(statsRef, { count: 1 });
+                } else {
+                    // Use Firestore's atomic increment
+                    await updateDoc(statsRef, {
+                        count: increment(1)
+                    });
+                }
             } catch (error) {
-                console.error("Firebase Counter Error:", error);
+                console.error("Firestore Error:", error);
+                // Fallback to local increment if Firestore is blocked by rules
+                let local = parseInt(localStorage.getItem('v_count') || "0") + 1;
+                localStorage.setItem('v_count', local);
+                counterElements.forEach(el => el.innerText = local.toLocaleString());
             }
         }
 
         // Listen for real-time changes
-        onValue(visitorRef, (snapshot) => {
-            const count = snapshot.val() || 0;
-            counterElements.forEach(el => {
-                el.innerText = count.toLocaleString();
-            });
+        onSnapshot(statsRef, (doc) => {
+            if (doc.exists()) {
+                const data = doc.data();
+                counterElements.forEach(el => {
+                    el.innerText = (data.count || 0).toLocaleString();
+                });
+            }
         });
 
-        // Run on load
         updateVisitorCount();
     </script>
 </body>
