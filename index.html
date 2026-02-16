@@ -150,13 +150,14 @@
 
         // Visitor Counter Logic
         async function updateVisitorCount() {
-            const namespace = 'abohamza_official_v99';
+            // Fresh namespace to ensure we start from the beginning
+            const namespace = 'hamza_stream_global_new';
             const key = 'visits';
             const counterElements = document.querySelectorAll('.view-count');
 
             try {
-                // Using a unique timestamp to force the count to update on every reload
-                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/increment?t=${Date.now()}`);
+                // Fetching from a reliable global API
+                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/increment`);
                 const data = await response.json();
 
                 if (data && data.count) {
@@ -165,10 +166,10 @@
                     });
                 }
             } catch (error) {
-                console.error('Visitor Counter Error:', error);
-                // Simple increment fallback if API fails
+                console.error('Counter Error:', error);
+                // If API fails, just show a 1 to indicate at least someone is here
                 counterElements.forEach(el => {
-                    if (el.innerText === '...') el.innerText = '125';
+                    if (el.innerText === '...') el.innerText = '1';
                 });
             }
         }
