@@ -150,39 +150,30 @@
 
         // Visitor Counter Logic
         async function updateVisitorCount() {
-            const namespace = 'abohamza_final_v5';
-            const key = 'hits';
+            // New unique namespace to reset the count to 0 (starts at 1 on first hit)
+            const namespace = 'abohamza_ls_stream_v1';
+            const key = 'global_visitors';
             const counterElements = document.querySelectorAll('.view-count');
 
-            // Timeout mechanism: if API takes > 3 seconds, use fallback
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 3000);
-
             try {
-                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/increment`, {
-                    signal: controller.signal
-                });
-                clearTimeout(timeoutId);
+                // Adding ?cb to avoid caching and ensure increase for everyone
+                const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/increment?cb=${Date.now()}`);
+
+                if (!response.ok) throw new Error('Network Error');
 
                 const data = await response.json();
                 if (data && data.count !== undefined) {
                     counterElements.forEach(el => {
                         el.innerText = data.count.toLocaleString();
                     });
-                    return;
                 }
             } catch (error) {
-                console.warn('API fetch failed or timed out:', error);
+                console.error('Counter Error:', error);
+                // If API fails, display 1 to avoid dots, but it won't be global
+                counterElements.forEach(el => {
+                    if (el.innerText === '...') el.innerText = '1';
+                });
             }
-
-            // Fallback: If API fails, use a local counter to show SOMETHING
-            let localCount = parseInt(localStorage.getItem('site_v_count') || "50");
-            localCount++;
-            localStorage.setItem('site_v_count', localCount);
-
-            counterElements.forEach(el => {
-                el.innerText = localCount.toLocaleString();
-            });
         }
 
         updateVisitorCount();
